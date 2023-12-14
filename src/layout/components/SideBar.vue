@@ -15,8 +15,13 @@ limitations under the License. -->
 <template>
   <div class="side-bar" v-if="showMenu" @click="isCollapse = false" @mouseleave="closeMenu">
     <div :class="isCollapse ? 'logo-icon-collapse' : 'logo-icon'">
-      <Icon :size="isCollapse ? 'xl' : 'logo'" :iconName="isCollapse ? 'logo' : 'logo-sw'" />
+      <Icon
+        :size="isCollapse ? 'xl' : 'logo'"
+        :iconName="isCollapse ? 'observeany-logo' : 'observeany-logo-w-f'"
+        style="color: #fff"
+      />
     </div>
+    <p v-if="!isCollapse" style="font-size: 12px; text-align: center">Powered by Apache SkyWalking</p>
     <div class="menu scroll_bar_dark" :style="isCollapse ? {} : { width: '220px' }">
       <el-menu
         active-text-color="#448dfe"

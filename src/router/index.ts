@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import type { RouteRecordRaw } from "vue-router";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import { routesDashboard } from "./dashboard";
 import { routesMarketplace } from "./marketplace";
 import { routesAlarm } from "./alarm";
@@ -31,7 +31,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes,
 });
 

@@ -29,6 +29,18 @@ import * as event from "./query/event";
 import * as ebpf from "./query/ebpf";
 import * as demandLog from "./query/demand-log";
 
+axios.interceptors.response.use(
+    (res: AxiosResponse) => {
+      return res;
+    },
+    (err) => {
+      if (err.response.status === 401) {
+        location.href = "https://www.observeany.com/login";
+      }
+      return Promise.reject(err);
+    },
+);
+
 const query: { [key: string]: string } = {
   ...app,
   ...selector,
