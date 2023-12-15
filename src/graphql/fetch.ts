@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 import type { AxiosResponse } from "axios";
-import axios from "axios";
+import service from "./request";
 import { cancelToken } from "@/utils/cancelToken";
 
 async function query(param: { queryStr: string; conditions: { [key: string]: unknown } }) {
-  const res: AxiosResponse = await axios.post(
+  const res: AxiosResponse = await service.post(
     "/graphql",
     { query: param.queryStr, variables: { ...param.conditions } },
     { cancelToken: cancelToken() },

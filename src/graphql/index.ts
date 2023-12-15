@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import type { AxiosPromise, AxiosResponse } from "axios";
-import axios from "axios";
+import service from "./request";
 import { cancelToken } from "@/utils/cancelToken";
 import * as app from "./query/app";
 import * as selector from "./query/selector";
@@ -28,18 +28,6 @@ import * as alarm from "./query/alarm";
 import * as event from "./query/event";
 import * as ebpf from "./query/ebpf";
 import * as demandLog from "./query/demand-log";
-
-axios.interceptors.response.use(
-    (res: AxiosResponse) => {
-      return res;
-    },
-    (err) => {
-      if (err.response.status === 401) {
-        location.href = "https://www.observeany.com/login";
-      }
-      return Promise.reject(err);
-    },
-);
 
 const query: { [key: string]: string } = {
   ...app,
@@ -61,7 +49,7 @@ class Graphql {
     return this;
   }
   public params(variablesData: unknown): AxiosPromise<void> {
-    return axios
+    return service
       .post(
         "/graphql",
         {
