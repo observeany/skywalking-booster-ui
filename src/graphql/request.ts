@@ -28,8 +28,12 @@ async function getEndpoint() {
     },
   );
 
-  const response = await auth.get("/auth/check");
-  console.log(response);
+  const response = await auth.get("/auth/check", {
+    params: {
+      namespace,
+    },
+  });
+  localStorage.setItem(key, response.data.endpoint);
   return response.data.endpoint;
 }
 
