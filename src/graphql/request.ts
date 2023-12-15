@@ -14,6 +14,7 @@ async function getEndpoint() {
 
   const auth = axios.create({
     baseURL: "https://cloud-api.observeany.com/v1",
+    withCredentials: true,
   });
   auth.interceptors.response.use(
     (res: AxiosResponse) => {
@@ -32,7 +33,9 @@ async function getEndpoint() {
   return response.data.endpoint;
 }
 
-const service = axios.create();
+const service = axios.create({
+  withCredentials: true,
+});
 
 service.interceptors.request.use(
   async (config) => {
