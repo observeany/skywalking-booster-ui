@@ -32,10 +32,18 @@ async function getEndpoint() {
   return response.data.endpoint;
 }
 
-const service = axios.create({
-  baseURL: await getEndpoint(),
-});
+const service = axios.create();
 
+service.interceptors.request.use(
+  async (config) => {
+    const endpoint = await getEndpoint();
+    config.baseURL = endpoint;
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  },
+);
 service.interceptors.response.use(
   (res: AxiosResponse) => {
     return res;
