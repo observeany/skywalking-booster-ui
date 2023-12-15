@@ -29,7 +29,7 @@ async function getEndpoint() {
 
   const response = await auth.get("/auth/check");
   console.log(response);
-  return "";
+  return response.data.endpoint;
 }
 
 const service = axios.create({
