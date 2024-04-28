@@ -35,7 +35,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     plugins: [
       vue(),
       vueJsx(),
-      monacoEditorPlugin({}),
+      monacoEditorPlugin({
+        publicPath:
+          mode === "production" ? "https://static.console.observeany.com/monacoeditorwork" : "monacoeditorwork",
+        forceBuildCDN: mode === "production",
+        customDistPath: (root, buildOutDir, base) => {
+          return path.join(root, buildOutDir, base, "monacoeditorwork");
+        },
+      }),
       AutoImport({
         imports: ["vue"],
         resolvers: [ElementPlusResolver()],
@@ -76,6 +83,15 @@ export default ({ mode }: ConfigEnv): UserConfig => {
           target: `${VITE_SW_PROXY_TARGET || "http://127.0.0.1:12800"}`,
           changeOrigin: true,
         },
+      },
+    },
+    experimental: {
+      renderBuiltUrl(filename, { hostType }) {
+        if (mode === "production") {
+          return `https://static.console.observeany.com/${filename}`;
+        } else {
+          return `/${filename}`;
+        }
       },
     },
     build: {
