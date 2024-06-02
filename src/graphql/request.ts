@@ -1,11 +1,8 @@
 import axios, { type AxiosResponse } from "axios";
 
 async function getEndpoint() {
-  const pathname = location.pathname;
-  if (pathname.length < 6) {
-    // todo
-  }
-  const namespace = pathname.substring(1, location.pathname.length - 1);
+  const hosts = location.host.split('.')
+  const namespace = hosts[0];
   const key = "observeany-endpoint-" + namespace;
   const endpoint = localStorage.getItem(key);
   if (endpoint) {
